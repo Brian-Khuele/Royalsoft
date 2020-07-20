@@ -1,0 +1,21 @@
+{
+	"editor.wordWrap": "wordWrapColumn",
+	"vetur.completion.tagCasing": "initial",
+	"vetur.format.defaultFormatter.html": "prettier",
+	"vetur.format.defaultFormatterOptions": {
+		"js-beautify-html": {
+			"wrap_attributes": "force-expand-multiline"
+		},
+		"prettyhtml": {
+			"printWidth": 100,
+			"singleQuote": false,
+			"wrapAttributes": true,
+			"sortAttributes": true
+		}
+	},
+	"vetur.format.styleInitialIndent": true,
+	"vetur.format.scriptInitialIndent": true,
+	"vetur.format.options.useTabs": true,
+	"vetur.format.options.tabSize": 4,
+	"prettier.arrowParens": "always"
+}

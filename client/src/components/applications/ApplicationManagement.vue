@@ -4,7 +4,7 @@
 			<q-card>
 				<q-card-section>
 					<div class="text-h6">
-						Online application management
+						Online applications management
 						<q-card-actions align="right">
 							<q-btn flat label="Close" @click="closeDialog" />
 						</q-card-actions>

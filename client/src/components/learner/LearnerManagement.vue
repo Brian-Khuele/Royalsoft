@@ -1,4 +1,4 @@
-<template>
+<template lang="ts">
 	<div>
 		<q-dialog v-model="fullWidth" full-width full-height>
 			<q-card>
@@ -51,48 +51,48 @@
 </template>
 
 <script>
-	import LearnerUpdate from "./LearnerUpdate";
-	import LearnerStatus from "./LearnerStatus";
-	import LearnerSubjects from "./LearnerSubjects";
+import LearnerUpdate from './LearnerUpdate';
+import LearnerStatus from './LearnerStatus';
+import LearnerSubjects from './LearnerSubjects';
 
-	export default {
-		name: "LearnerManagement",
-		components: {
-			LearnerUpdate,
-			LearnerStatus,
-			LearnerSubjects
-		},
-		props: {
-			selectedLearner: {
-				type: Object,
-				required: true
-			},
-			showDialog: {
-				type: Boolean,
-				required: true
-			}
-		},
-		data() {
-			return {
-				tab: "update"
-			};
-		},
-		computed: {
-			fullWidth: {
-				get: function() {
-					return this.showDialog;
-				},
-				set: function(val) {
-					this.$emit("closeDialog", val);
-				}
-			}
-		},
-		methods: {
-			closeDialog() {
-				this.$emit("closeDialog", false);
-			}
-		}
-	};
+export default {
+  name: 'LearnerManagement',
+  components: {
+    LearnerUpdate,
+    LearnerStatus,
+    LearnerSubjects,
+  },
+  props: {
+    selectedLearner: {
+      type: Object,
+      required: true,
+    },
+    showDialog: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      tab: 'update',
+    };
+  },
+  computed: {
+    fullWidth: {
+      get() {
+        return this.showDialog;
+      },
+      set(val) {
+        this.$emit('closeDialog', val);
+      },
+    },
+  },
+  methods: {
+    closeDialog() {
+      this.$emit('closeDialog', false);
+    },
+  },
+};
 </script>
 
 <style lang="sass" scoped>

@@ -1,13 +1,13 @@
 // app global css in SCSS form
-$subtleTouch: #15e0da;
-$mainContent: #0f1724;
+$subtleTouch: #212c3d;
+$mainContent: whitesmoke;
 $notification: #afd310;
 
 * {
-	font-family: "Nunito", sans-serif;
+	font-family: 'Nunito', sans-serif;
 }
 .main {
-	font-family: "Nunito", sans-serif;
+	font-family: 'Nunito', sans-serif;
 }
 
 .sideBar {
@@ -39,33 +39,19 @@ $notification: #afd310;
 			flex-grow: 1;
 			display: flex;
 			flex-direction: column;
-			color: white;
+			color: black;
 
 			.tableLearners {
 				color: black !important;
 				margin-top: 10px;
-				box-shadow: 0px 0px 4px 1px gray;
+				box-shadow: 0px 0px 4px 1px black;
 			}
 		}
 	}
 }
 
 .q-toolbar__title {
-	color: $subtleTouch;
-}
-
-.dataInput {
-	color: white !important;
-}
-
-.q-field--outlined.q-field--focused .q-field__control:after {
-	border: 1px solid $subtleTouch;
-	color: yellow !important;
-}
-
-.q-field--outlined .q-field__control:after {
-	border: 1px solid $subtleTouch;
-	color: yellow !important;
+	color: white;
 }
 
 .q-field__native {
@@ -73,14 +59,13 @@ $notification: #afd310;
 }
 
 .q-field__label {
-	color: yellow !important;
+	color: $primary !important;
 }
 
-.q-card,
-.q-tab-panel {
+.q-card {
 	background: $mainContent;
-	color: white;
-	box-shadow: 0px 0px 4px 1px $primary !important;
+	color: black;
+	border: 2px solid $subtleTouch;
 }
 
 th {
@@ -96,13 +81,27 @@ tbody tr:hover {
 	color: $mainContent;
 }
 .learnerTable table {
-	background: burlywood;
+	background: $primary;
 	color: black;
-	thead {
-	}
 
 	tr:hover {
 		cursor: default !important;
 		background: none !important;
 	}
+}
+
+.q-field__control {
+	background: $subtleTouch;
+}
+
+.q-item {
+	border-top: 1px solid rgb(61, 57, 57);
+}
+
+.q-tab-panel {
+	background: $mainContent;
+}
+
+.q-tab {
+	color: $subtleTouch !important;
 }

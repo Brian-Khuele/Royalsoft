@@ -1,11 +1,11 @@
 import { Router } from "express";
-import vdoRouter from "./hydraX";
+import hydraX from "./hydraX";
 
 // Init router and path
 const router = Router();
 
 // Add sub-routes
-router.use("/", vdoRouter);
+router.use("/", hydraX);
 
 // Export the base-router
 export default router;

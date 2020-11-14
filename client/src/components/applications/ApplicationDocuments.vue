@@ -1,10 +1,10 @@
 <template>
-	<div></div>
+	<div class="q-pa-md">where is my component?</div>
 </template>
 
 <script>
 export default {
-  name: 'AdminRoles',
+  name: 'ApplicationDocuments',
   props: {
     props: {
       type: Object,
@@ -17,6 +17,5 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-
+<style lang="scss" scoped>
 </style>

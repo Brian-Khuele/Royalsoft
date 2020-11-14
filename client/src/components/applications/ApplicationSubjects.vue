@@ -33,97 +33,94 @@
 </template>
 
 <script>
-	import { mapGetters } from "vuex";
-	export default {
-		name: "LearnerSubjects",
-		props: {
-			props: {
-				type: Object,
-				required: true
-			}
-		},
-		data() {
-			return {
-				groupLearnerSubjects: [],
-				groupAvailableSubjects: [],
-				availableSubjects: [],
-				learnerSubjects: [],
-				learner: {}
-			};
-		},
-		computed: {
-			...mapGetters("module", ["getSubjects", "getGrades"])
-		},
-		methods: {
-			submit() {
-				try {
-					//send selected subjects to the server for updated
-					this.$axios
-						.post(
-							`https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/learner/subjects/${this.props.student_number}`,
-							{
-								student_number: this.props.student_number,
-								subject_id: this.groupLearnerSubjects
-							}
-						)
-						.then(response => {
-							this.$q.notify({
-								message: "response: " + JSON.stringify(response)
-							});
-						})
-						.catch(error => {
-							this.$q.notify({
-								message: "error: " + JSON.stringify(error),
-								color: "red"
-							});
-						});
-				} catch (error) {
-					this.$q.notify({
-						message: "error: " + JSON.stringify(error),
-						color: "red"
-					});
-				}
-			}
-		},
-		mounted() {
-			try {
-				this.$axios
-					.get(
-						`https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/learner/subjects/${this.props.student_number}`
-					)
-					.then(response => {
-						this.learnerSubjects = response.data.map(subjectObject => {
-							this.groupLearnerSubjects.push(
-								subjectObject.subject_id
-							);
-							return {
-								label: subjectObject.subject_desc,
-								value: subjectObject.subject_id
-							};
-						});
-						//set system subjects and filter subjects student already has
-						this.availableSubjects = this.getSubjects
-							.map(subject => {
-								return {
-									label: subject.subject_desc,
-									value: subject.subject_id
-								};
-							})
-							.filter(subject => {
-								return !this.groupLearnerSubjects.includes(
-									subject.value
-								);
-							});
-					})
-					.catch(error => {
-						this.$q.notify({
-							message: JSON.stringify(error),
-							color: "red"
-						});
-					});
-			} catch (error) {}
-		}
-	};
+import { mapGetters } from 'vuex';
+
+export default {
+  name: 'LearnerSubjects',
+  props: {
+    props: {
+      type: Object,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      groupLearnerSubjects: [],
+      groupAvailableSubjects: [],
+      availableSubjects: [],
+      learnerSubjects: [],
+      learner: {},
+    };
+  },
+  computed: {
+    ...mapGetters('module', ['getSubjects', 'getGrades']),
+  },
+  methods: {
+    submit() {
+      try {
+        // send selected subjects to the server for updated
+        this.$axios
+          .post(
+            `https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/learner/subjects/${this.props.student_number}`,
+            {
+              student_number: this.props.student_number,
+              subject_id: this.groupLearnerSubjects,
+            },
+          )
+          .then((response) => {
+            this.$q.notify({
+              message: `response: ${JSON.stringify(response)}`,
+            });
+          })
+          .catch((error) => {
+            this.$q.notify({
+              message: `error: ${JSON.stringify(error)}`,
+              color: 'red',
+            });
+          });
+      } catch (error) {
+        this.$q.notify({
+          message: `error: ${JSON.stringify(error)}`,
+          color: 'red',
+        });
+      }
+    },
+  },
+  mounted() {
+    try {
+      this.$axios
+        .get(
+          `https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/learner/subjects/${this.props.student_number}`,
+        )
+        .then((response) => {
+          this.learnerSubjects = response.data.map((subjectObject) => {
+            this.groupLearnerSubjects.push(
+              subjectObject.subject_id,
+            );
+            return {
+              label: subjectObject.subject_desc,
+              value: subjectObject.subject_id,
+            };
+          });
+          // set system subjects and filter subjects student already has
+          this.availableSubjects = this.getSubjects
+            .map((subject) => ({
+              label: subject.subject_desc,
+              value: subject.subject_id,
+            }))
+            .filter((subject) => !this.groupLearnerSubjects.includes(
+              subject.value,
+            ));
+        })
+        .catch((error) => {
+          this.$q.notify({
+            message: JSON.stringify(error),
+            color: 'red',
+          });
+        });
+    } catch (error) {}
+  },
+};
 </script>
 
 <style lang="scss" scoped>

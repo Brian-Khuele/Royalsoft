@@ -17,8 +17,8 @@
 					readonly
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'value may not be empty',
 					]"
 					input-class="dataInput"
 				/>
@@ -32,8 +32,8 @@
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || `Value may not be blank`
+						(val) =>
+							(val && val.length > 0) || `Value may not be blank`,
 					]"
 				/>
 				<q-input
@@ -46,8 +46,8 @@
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || `Value may not be blank`
+						(val) =>
+							(val && val.length > 0) || `Value may not be blank`,
 					]"
 				/>
 				<q-input
@@ -60,21 +60,21 @@
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be blank'
+						(val) =>
+							(val && val.length > 0) || 'Value may not be blank',
 					]"
 				/>
 				<q-select
 					v-model="learner.grade"
 					ref="grade"
-					:options="grades"
+					:options="getGrades"
 					outlined
 					hint="Select a grade"
 					hide-hint
 					label="Grade"
 					dense
 					lazy-rules
-					:rules="[val => val || 'Value may not be empty']"
+					:rules="[(val) => val || 'Value may not be empty']"
 				/>
 				<q-input
 					v-model="learner.email"
@@ -86,14 +86,14 @@
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
 					]"
 				/>
 				<q-select
 					v-model="learner.gender"
 					ref="gender"
-					:options="genders"
+					:options="getGenders"
 					outlined
 					hint="Select a gender"
 					hide-hint
@@ -101,8 +101,8 @@
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
 					]"
 				/>
 			</div>
@@ -117,14 +117,14 @@
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
 					]"
 				/>
 				<q-select
 					v-model="learner.id_type"
 					ref="id_type"
-					:options="id_types"
+					:options="getIdTypes"
 					outlined
 					hint="Select an Id type"
 					hide-hint
@@ -132,14 +132,14 @@
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
 					]"
 				/>
 				<q-select
 					v-model="learner.birth_country"
 					ref="birth_country"
-					:options="birth_countries"
+					:options="getCountries"
 					outlined
 					hint="Select a birth country"
 					hide-hint
@@ -147,14 +147,14 @@
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
 					]"
 				/>
 				<q-select
 					v-model="learner.home_language"
 					ref="home_language"
-					:options="home_languages"
+					:options="getLanguages"
 					outlined
 					hint="Select a home language"
 					hide-hint
@@ -162,14 +162,14 @@
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
 					]"
 				/>
 				<q-select
 					v-model="learner.race"
 					ref="race"
-					:options="races"
+					:options="getRaces"
 					outlined
 					hint="Select a Race"
 					hide-hint
@@ -177,14 +177,14 @@
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
 					]"
 				/>
 				<q-select
 					v-model="learner.combination"
 					ref="combination"
-					:options="combinations"
+					:options="getCombinations"
 					outlined
 					hint="Select a combination"
 					hide-hint
@@ -192,8 +192,8 @@
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
 					]"
 				/>
 			</div>
@@ -218,77 +218,75 @@
 </template>
 
 <script>
-	import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 
-	export default {
-		name: "ApplicationLearner",
-		props: {
-			props: {
-				type: Object,
-				required: true
-			}
-		},
-		data() {
-			return {
-				grades: [],
-				id_types: [],
-				birth_countries: [],
-				home_languages: [],
-				races: [],
-				combinations: [],
-				genders: [],
-				learner: {},
-				loading: false
-			};
-		},
-		computed: {
-			...mapGetters("module", ["getGrades", "getCombinations"])
-		},
-		methods: {
-			onSubmit() {
-				//submit the updated changes
-				this.loading = true;
+export default {
+  name: 'ApplicationLearner',
+  props: {
+    props: {
+      type: Object,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      learner: {},
+      loading: false,
+    };
+  },
+  computed: {
+    ...mapGetters('module', [
+      'getRaces',
+      'getRoles',
+      'getCountries',
+      'getGrades',
+      'getSubjects',
+      'getCombinations',
+      'getGenders',
+      'getIdTypes',
+      'getLanguages',
+    ]),
+  },
+  methods: {
+    onSubmit() {
+      // submit the updated changes
+      this.loading = true;
 
-				this.$axios
-					.post(
-						`https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/learners/${this.learner.student_number}`,
-						this.learner
-					)
-					.then(response => {
-						//show success notification
-						if (response.statusText == "OK") {
-							this.$q.notify({
-								message: "successfully updated learner information"
-							});
-						}
-					})
-					.catch(error => {
-						//show error notification
-						this.$q.notify({
-							message: JSON.stringify(error)
-						});
-					})
-					.finally(() => (this.loading = false));
-			},
-			onReset() {
-				this.learner = {};
+      this.$axios
+        .post(
+          `https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/learners/${this.learner.student_number}`,
+          this.learner,
+        )
+        .then((response) => {
+          // show success notification
+          if (response.statusText == 'OK') {
+            this.$q.notify({
+              message: 'successfully updated learner information',
+            });
+          }
+        })
+        .catch((error) => {
+          // show error notification
+          this.$q.notify({
+            message: JSON.stringify(error),
+          });
+        })
+        .finally(() => (this.loading = false));
+    },
+    onReset() {
+      this.learner = {};
 
-				Object.keys(this.$refs).map(ref => {
-					if (this.$refs[ref].hasOwnProperty("resetValidation"))
-						this.$refs[ref].resetValidation();
-				});
-				this.learner.student_number = this.props.student_number;
-			}
-		},
-		mounted() {
-			//copy props to mutable data object for updating
-			this.learner = this.props.learner;
-			console.log(this.props);
-
-			this.grades = this.getGrades;
-			this.combinations = this.getCombinations;
-		}
-	};
+      Object.keys(this.$refs).map((ref) => {
+        if (this.$refs[ref].hasOwnProperty('resetValidation')) { this.$refs[ref].resetValidation(); }
+      });
+      this.learner.student_number = this.props.student_number;
+    },
+  },
+  mounted() {
+    // copy props to mutable data object for updating
+    this.learner = this.props.learner;
+  },
+};
 </script>
 
 <style lang="css" scoped>

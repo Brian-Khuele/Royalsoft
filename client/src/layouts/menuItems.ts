@@ -1,49 +1,79 @@
 export const menuItems = [
-	{
-		title: "Learners",
-		caption: "view & manage learner info",
-		icon: "supervisor_account",
-		to: "/learners",
-		subItems: [
-			/*       {
-        title: "Register",
-        caption: "add learner(s)",
-        icon: "add_circle_outline",
-        to: "/learner/register"
-      },
+  {
+    title: 'Learners',
+    caption: 'view & manage learner info',
+    icon: 'supervisor_account',
+    to: '/learners',
+    subItems: [
       {
-        title: "View",
-        caption: "browse learners",
-        icon: "visibility",
-        to: "/learners"
+        title: 'new learner',
+        caption: 'register a learner',
+        icon: 'add',
+        to: '/registerLearner',
       },
-      {
-        title: "Edit",
-        caption: "update learner(s)",
-        icon: "edit",
-        to: "/learner/edit"
-      } */
-		],
-	},
-	{
-		title: "Admin",
-		caption: "manage system users",
-		icon: "edit",
-		to: "/admin",
-		//subItems: [],
-	},
-	{
-		title: "Parents",
-		caption: "parents/guardians info",
-		icon: "edit",
-		to: "/parents",
-		//subItems: [],
-	},
-	{
-		title: "Online applications",
-		caption: "Manage online applications",
-		icon: "edit",
-		to: "/applications",
-		//subItems: [],
-	},
+    ],
+  },
+  {
+    title: 'Admin',
+    caption: 'manage system users',
+    icon: 'face',
+    to: '/admin',
+    // subItems: [],
+  },
+  {
+    title: 'Parents',
+    caption: 'parents/guardians info',
+    icon: 'supervised_user_circle',
+    to: '/parents',
+    // subItems: [],
+  },
+  {
+    title: 'Online applications',
+    caption: 'Manage online applications',
+    icon: 'public',
+    to: '/applications',
+    // subItems: [],
+  },
+  {
+    title: 'Discipline',
+    caption: 'Learner discipline panel',
+    icon: 'gavel',
+    to: '/discipline',
+    // subItems: [],
+  },
+  {
+    title: 'Communication',
+    caption: 'View communication panel',
+    icon: 'chat',
+    to: '/communication',
+    // subItems: [],
+  },
+  {
+    title: 'Finances',
+    caption: 'School finances, Invoices etc',
+    icon: 'money',
+    to: '/finances',
+    // subItems: [],
+  },
+  {
+    title: 'Academics',
+    caption: 'Learner marks, Reports, Top 10...',
+    icon: 'book',
+    to: '/academics',
+    // subItems: [],
+  },
+  {
+    title: 'Timetable',
+    caption: 'Learner & Teacher timetables',
+    icon: 'departure_board',
+    to: '/timetable',
+    // subItems: [],
+  },
+  {
+    title: 'School structure',
+    caption: 'Configure school structure',
+    icon: 'account_tree',
+    to: '/structure',
+    // subItems: [],
+  },
 ];

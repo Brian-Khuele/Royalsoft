@@ -8,18 +8,22 @@ export interface hydraSystemValues {
 	idTypes: Array<string>;
 	languages: Array<string>;
 	combinations: Array<string>;
+	relations: Array<string>;
+	learnerStatus: Array<string>;
 }
 
 const state: hydraSystemValues = {
-	races: [],
-	roles: [],
-	countries: [],
-	grades: [],
-	subjects: [],
-	combinations: [],
-	genders: [],
-	idTypes: [],
-	languages: [],
+  races: [],
+  roles: [],
+  countries: [],
+  grades: [],
+  subjects: [],
+  combinations: [],
+  genders: [],
+  idTypes: [],
+  languages: [],
+  relations: [],
+  learnerStatus: [],
 };
 
 export default state;

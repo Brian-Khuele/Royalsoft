@@ -31,50 +31,46 @@
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				filterMsg: "",
-				filter: "",
-				options: [],
-				model: "",
-				columns: [],
-				data: [],
-				visibleColumns: []
-			};
-		},
-		methods: {},
-		mounted() {
-			//get all the learners in the school
-			this.$axios
-				.get(
-					"https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/parents"
-				)
-				.then(response => {
-					this.columns = Object.keys(response.data[0]).map(column => {
-						return {
-							name: column,
-							label: column
-								.split("_")
-								.join(" ")
-								.toUpperCase(),
-							field: column,
-							sortable: true,
-							align: "left"
-						};
-					});
+export default {
+  data() {
+    return {
+      filterMsg: '',
+      filter: '',
+      options: [],
+      model: '',
+      columns: [],
+      data: [],
+      visibleColumns: [],
+    };
+  },
+  methods: {},
+  mounted() {
+    // get all the learners in the school
+    this.$axios
+      .get(
+        'https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/parents',
+      )
+      .then((response) => {
+        this.columns = Object.keys(response.data[0]).map((column) => ({
+          name: column,
+          label: column
+            .split('_')
+            .join(' ')
+            .toUpperCase(),
+          field: column,
+          sortable: true,
+          align: 'left',
+        }));
 
-					this.visibleColumns = this.columns.map((column, index) => {
-						return index < this.columns.length - 1 ? column.name : "";
-					});
+        this.visibleColumns = this.columns.map((column, index) => (index < this.columns.length - 1 ? column.name : ''));
 
-					this.data = response.data;
-				})
-				.catch(error => {
-					console.log(error);
-				});
-		}
-	};
+        this.data = response.data;
+      })
+      .catch((error) => {
+        //console.log(error);
+      });
+  },
+};
 </script>
 
 <style lang="css" scoped>

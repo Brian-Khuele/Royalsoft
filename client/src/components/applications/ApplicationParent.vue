@@ -7,18 +7,18 @@
 		>
 			<div class="col">
 				<q-input
-					v-model="parent.student_number"
-					ref="student_number"
+					v-model="parent.parent_id"
+					ref="parent_id"
 					outlined
 					hint="enter new id/passport"
 					hide-hint
-					label="Student number"
+					label="Parent Id"
 					dense
 					readonly
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'value may not be empty',
 					]"
 					input-class="dataInput"
 				/>
@@ -32,8 +32,8 @@
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || `Value may not be blank`
+						(val) =>
+							(val && val.length > 0) || `Value may not be blank`,
 					]"
 				/>
 				<q-input
@@ -46,12 +46,12 @@
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || `Value may not be blank`
+						(val) =>
+							(val && val.length > 0) || `Value may not be blank`,
 					]"
 				/>
 				<q-input
-					v-model="parent.id_number"
+					v-model="parent.email"
 					ref="id_number"
 					outlined
 					hint="Id or passport number"
@@ -60,40 +60,14 @@
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be blank'
-					]"
-				/>
-				<q-select
-					v-model="parent.grade"
-					ref="grade"
-					:options="grades"
-					outlined
-					hint="Select a grade"
-					hide-hint
-					label="Grade"
-					dense
-					lazy-rules
-					:rules="[val => val || 'Value may not be empty']"
-				/>
-				<q-input
-					v-model="parent.email"
-					ref="email"
-					outlined
-					hint="bk@gmail.com"
-					hide-hint
-					label="Email"
-					dense
-					lazy-rules
-					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'Value may not be blank',
 					]"
 				/>
 				<q-select
 					v-model="parent.gender"
 					ref="gender"
-					:options="genders"
+					:options="getGenders"
 					outlined
 					hint="Select a gender"
 					hide-hint
@@ -101,8 +75,38 @@
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
+					]"
+				/>
+				<q-select
+					v-model="parent.relation"
+					ref="relation"
+					:options="getRelations"
+					outlined
+					hint="Father"
+					hide-hint
+					label="Relation"
+					dense
+					lazy-rules
+					:rules="[
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
+					]"
+				/>
+				<q-select
+					v-model="parent.race"
+					ref="race"
+					:options="getRaces"
+					outlined
+					hint="Select a Race"
+					hide-hint
+					label="Race"
+					dense
+					lazy-rules
+					:rules="[
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
 					]"
 				/>
 			</div>
@@ -117,83 +121,93 @@
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
 					]"
 				/>
-				<q-select
-					v-model="parent.id_type"
-					ref="id_type"
-					:options="id_types"
+				<q-input
+					v-model="parent.work_tel"
+					ref="work_tel"
 					outlined
-					hint="Select an Id type"
+					hint="Type in the work tel number"
 					hide-hint
-					label="Id type"
+					label="Work_tel number"
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
 					]"
 				/>
-				<q-select
-					v-model="parent.birth_country"
-					ref="birth_country"
-					:options="birth_countries"
+				<q-input
+					v-model="parent.home_tel"
+					ref="home_tel"
 					outlined
-					hint="Select a birth country"
+					hint="Type in the home tel number"
 					hide-hint
-					label="Birth country"
+					label="Home tel number"
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
 					]"
 				/>
-				<q-select
-					v-model="parent.home_language"
-					ref="home_language"
-					:options="home_languages"
+				<q-input
+					v-model="parent.occupation"
+					ref="occupation"
 					outlined
-					hint="Select a home language"
+					hint="Type in the occupation"
 					hide-hint
-					label="Home language"
+					label="Occupation"
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
 					]"
 				/>
-				<q-select
-					v-model="parent.race"
-					ref="race"
-					:options="races"
+				<q-input
+					v-model="parent.employer_name"
+					ref="employer_name"
 					outlined
-					hint="Select a Race"
+					hint="Employer name"
 					hide-hint
-					label="Race"
+					label="Employer name"
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
 					]"
 				/>
-				<q-select
-					v-model="parent.combination"
-					ref="combination"
-					:options="combinations"
+				<q-input
+					v-model="parent.employer_tel"
+					ref="employer_tel"
 					outlined
-					hint="Select a combination"
+					hint="Type in the employer's tel"
 					hide-hint
-					label="Combination"
+					label="Employer tel number"
 					dense
 					lazy-rules
 					:rules="[
-						val =>
-							(val && val.length > 0) || 'Value may not be empty'
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
+					]"
+				/>
+				<q-input
+					v-model="parent.employer_address"
+					type="textarea"
+					ref="employer_address"
+					outlined
+					hint="Employer's address"
+					hide-hint
+					label="Employer's address"
+					dense
+					lazy-rules
+					:rules="[
+						(val) =>
+							(val && val.length > 0) || 'Value may not be empty',
 					]"
 				/>
 			</div>
@@ -218,74 +232,65 @@
 </template>
 
 <script>
-	import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 
-	export default {
-		name: "ApplicationParent",
-		props: {
-			props: {
-				type: Object,
-				required: true
-			}
-		},
-		data() {
-			return {
-				grades: [],
-				id_types: [],
-				birth_countries: [],
-				home_languages: [],
-				races: [],
-				combinations: [],
-				genders: [],
-				parent: {},
-				loading: false
-			};
-		},
-		computed: {
-			...mapGetters("module", ["getGrades", "getCombinations"])
-		},
-		methods: {
-			onSubmit() {
-				//submit the updated changes
-				this.loading = true;
+export default {
+  name: 'ApplicationParent',
+  props: {
+    props: {
+      type: Object,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      parent: {},
+      loading: false,
+    };
+  },
+  computed: {
+    ...mapGetters('module', ['getRelations', 'getGenders', 'getRaces']),
+  },
+  methods: {
+    onSubmit() {
+      // submit the updated changes
+      this.loading = true;
 
-				this.$axios
-					.post(
-						`https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/learners/${this.parent.parent_id}`,
-						this.parent
-					)
-					.then(response => {
-						//show success notification
-						if (response.statusText == "OK") {
-							this.$q.notify({
-								message: "successfully updated parent information"
-							});
-						}
-					})
-					.catch(error => {
-						//show error notification
-						this.$q.notify({
-							message: JSON.stringify(error)
-						});
-					})
-					.finally(() => (this.loading = false));
-			},
-			onReset() {
-				this.parent = {};
+      this.$axios
+        .post(
+          `https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/learners/${this.parent.parent_id}`,
+          this.parent,
+        )
+        .then((response) => {
+          // show success notification
+          if (response.statusText == 'OK') {
+            this.$q.notify({
+              message: 'successfully updated parent information',
+            });
+          }
+        })
+        .catch((error) => {
+          // show error notification
+          this.$q.notify({
+            message: JSON.stringify(error),
+          });
+        })
+        .finally(() => (this.loading = false));
+    },
+    onReset() {
+      this.parent = {};
 
-				Object.keys(this.$refs).map(ref => {
-					if (this.$refs[ref].hasOwnProperty("resetValidation"))
-						this.$refs[ref].resetValidation();
-				});
-				this.parent.student_number = this.props.student_number;
-			}
-		},
-		mounted() {
-			//copy props to mutable data object for updating
-			this.parent = this.props.parent;
-			console.log(this.props);
-		}
-	};
+      Object.keys(this.$refs).map((ref) => {
+        if (this.$refs[ref].hasOwnProperty('resetValidation')) { this.$refs[ref].resetValidation(); }
+      });
+      this.parent.student_number = this.props.student_number;
+    },
+  },
+  mounted() {
+    // copy props to mutable data object for updating
+    this.parent = this.props.parent;
+  },
+};
 </script>
 
 <style lang="css" scoped>

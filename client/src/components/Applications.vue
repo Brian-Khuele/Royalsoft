@@ -96,75 +96,68 @@
 </template>
 
 <script>
-	import ApplicationManagement from "./applications/ApplicationManagement";
-	export default {
-		name: "Applications",
-		components: { ApplicationManagement },
-		data() {
-			return {
-				filterMsg: "",
-				filter: "",
-				options: [],
-				model: "",
-				columns: [],
-				data: [],
-				visibleColumns: [],
-				showDialog: false,
-				selectedApplication: {}
-			};
-		},
-		methods: {
-			rowClicked(event, props) {
-				//Show application management dialog
-				this.showDialog = true;
-				this.selectedApplication = this.data.filter(object => {
-					return object.parent_id == props.row.parent_id;
-				})[0];
-			},
-			table(input) {
-				//console.log(input);
-				return Object.keys(input).map(column => {
-					return {
-						name: column,
-						label: column
-							.split("_")
-							.join(" ")
-							.toUpperCase(),
-						field: column,
-						sortable: true,
-						align: "left"
-					};
-				});
-			}
-		},
-		mounted() {
-			//get all the learners in the school
-			this.$axios
-				.get(
-					"https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/applications"
-				)
-				.then(response => {
-					this.columns = Object.keys(response.data[0].parent).map(key => {
-						return {
-							name: key,
-							label: key
-								.split("_")
-								.join(" ")
-								.toUpperCase(),
-							field: row => {
-								return row.parent[key];
-							},
-							sortable: true,
-							align: "left"
-						};
-					});
-					this.data = response.data;
-				})
-				.catch(error => {
-					console.log(error);
-				});
-		}
-	};
+import ApplicationManagement from './applications/ApplicationManagement';
+
+export default {
+  name: 'Applications',
+  components: { ApplicationManagement },
+  data() {
+    return {
+      filterMsg: '',
+      filter: '',
+      options: [],
+      model: '',
+      columns: [],
+      data: [],
+      visibleColumns: [],
+      showDialog: false,
+      selectedApplication: {},
+    };
+  },
+  methods: {
+    rowClicked(event, props) {
+      // Show application management dialog
+      this.showDialog = true;
+      this.selectedApplication = this.data.filter((object) => object.parent_id == props.row.parent_id)[0];
+    },
+    table(input) {
+      // console.log(input);
+      return Object.keys(input).map((column) => ({
+        name: column,
+        label: column
+          .split('_')
+          .join(' ')
+          .toUpperCase(),
+        field: column,
+        sortable: true,
+        align: 'left',
+      }));
+    },
+  },
+  mounted() {
+    // get all the learners in the school
+    this.$axios
+      .get(
+        'https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/applications',
+      )
+      .then((response) => {
+        this.columns = Object.keys(response.data[0].parent).map((key) => ({
+          name: key,
+          label: key
+            .split('_')
+            .join(' ')
+            .toUpperCase(),
+          field: (row) => row.parent[key],
+          sortable: true,
+          align: 'left',
+        }));
+        this.data = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+};
 </script>
 
 <style lang="scss" scoped>

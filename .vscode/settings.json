@@ -1,21 +1,12 @@
 {
-	"editor.wordWrap": "wordWrapColumn",
-	"vetur.completion.tagCasing": "initial",
-	"vetur.format.defaultFormatter.html": "prettier",
-	"vetur.format.defaultFormatterOptions": {
-		"js-beautify-html": {
-			"wrap_attributes": "force-expand-multiline"
-		},
-		"prettyhtml": {
-			"printWidth": 100,
-			"singleQuote": false,
-			"wrapAttributes": true,
-			"sortAttributes": true
-		}
-	},
-	"vetur.format.styleInitialIndent": true,
-	"vetur.format.scriptInitialIndent": true,
-	"vetur.format.options.useTabs": true,
-	"vetur.format.options.tabSize": 4,
-	"prettier.arrowParens": "always"
+    "editor.fontFamily": "‘Fira Code’, Consolas, ‘Courier New’, monospace",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 15,
+    "vetur.format.options.useTabs":false ,
+    "editor.formatOnSave": true,
+    "editor.autoClosingQuotes": "always",
+    "javascript.preferences.quoteStyle": "single",
+    "typescript.preferences.quoteStyle": "single",
+    "prettier.jsxSingleQuote": true,
+    "vetur.format.defaultFormatter.html": "js-beautify-html"
 }

@@ -144,121 +144,118 @@
 </template>
 
 <script>
-	export default {
-		name: "AdminUpdate",
-		props: {
-			props: {
-				type: Object,
-				required: true
-			}
-		},
-		data() {
-			return {
-				data: [],
-				columns: [],
-				user: {},
-				genders: [],
-				races: [],
-				groups: ["teachers", "admin", "data capturer"], //these are user groups
-				staff_types: []
-			};
-		},
-		methods: {
-			getGroupRoles() {
-				try {
-					console.log(this.user.group);
-					this.$axios
-						.get(
-							`https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/roles/${this.user.group}`
-						)
-						.then(response => {
-							this.$q.notify({ message: JSON.stringify(this.user) });
-							//validate response
-							console.log(response.data);
-							if (response.statusText == "OK") {
-								this.columns = Object.keys(response.data[0]).map(
-									column => {
-										return {
-											name: column,
-											label: column
-												.split("_")
-												.join(" ")
-												.toUpperCase(),
-											field: column,
-											sortable: true,
-											align: "left"
-										};
-									}
-								);
+export default {
+  name: 'AdminUpdate',
+  props: {
+    props: {
+      type: Object,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      data: [],
+      columns: [],
+      user: {},
+      genders: [],
+      races: [],
+      groups: ['teachers', 'admin', 'data capturer'], // these are user groups
+      staff_types: [],
+    };
+  },
+  methods: {
+    getGroupRoles() {
+      try {
+        console.log(this.user.group);
+        this.$axios
+          .get(
+            `https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/roles/${this.user.group}`,
+          )
+          .then((response) => {
+            this.$q.notify({ message: JSON.stringify(this.user) });
+            // validate response
+            console.log(response.data);
+            if (response.statusText == 'OK') {
+              this.columns = Object.keys(response.data[0]).map(
+                (column) => ({
+                  name: column,
+                  label: column
+                    .split('_')
+                    .join(' ')
+                    .toUpperCase(),
+                  field: column,
+                  sortable: true,
+                  align: 'left',
+                }),
+              );
 
-								return (this.data = response.data);
-							} else {
-								//we'll see what other code we might receive here
-							}
-						})
-						.catch(error => {
-							console.error(error);
-							this.$q.notify({
-								message: "getRoles error 1" + JSON.stringify(error),
-								color: "red"
-							});
-						});
-				} catch (error) {
-					this.$q.notify({
-						message: "getRoles error 2" + JSON.stringify(error),
-						color: "red"
-					});
-				}
-			},
-			onSubmit() {
-				//send the data to the server
-				try {
-					this.$axios
-						.post(
-							`https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/employees/${this.user.staff_id}`,
-							this.user
-						)
-						.then(response => {
-							this.$q.notify({ message: JSON.stringify(this.user) });
-							//validate response
-							if (response.statusText == "OK") {
-								this.$q.notify({
-									message:
-										"User information successfully updated. Changes will take effect immediately ;)"
-								});
-							} else {
-								//we'll see what other code we might receive here
-							}
-						})
-						.catch(error => {
-							this.$q.notify({
-								message:
-									"server error response:" +
-									JSON.stringify(error),
-								color: "red"
-							});
-						});
-				} catch (error) {
-					this.$q.notify({
-						message: "network error:" + JSON.stringify(error),
-						color: "red"
-					});
-				}
-			},
+              return (this.data = response.data);
+            }
+            // we'll see what other code we might receive here
+          })
+          .catch((error) => {
+            console.error(error);
+            this.$q.notify({
+              message: `getRoles error 1${JSON.stringify(error)}`,
+              color: 'red',
+            });
+          });
+      } catch (error) {
+        this.$q.notify({
+          message: `getRoles error 2${JSON.stringify(error)}`,
+          color: 'red',
+        });
+      }
+    },
+    onSubmit() {
+      // send the data to the server
+      try {
+        this.$axios
+          .post(
+            `https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/employees/${this.user.staff_id}`,
+            this.user,
+          )
+          .then((response) => {
+            this.$q.notify({ message: JSON.stringify(this.user) });
+            // validate response
+            if (response.statusText == 'OK') {
+              this.$q.notify({
+                message:
+										'User information successfully updated. Changes will take effect immediately ;)',
+              });
+            } else {
+              // we'll see what other code we might receive here
+            }
+          })
+          .catch((error) => {
+            this.$q.notify({
+              message:
+									`server error response:${
+									  JSON.stringify(error)}`,
+              color: 'red',
+            });
+          });
+      } catch (error) {
+        this.$q.notify({
+          message: `network error:${JSON.stringify(error)}`,
+          color: 'red',
+        });
+      }
+    },
 
-			onReset() {
-				this.name = null;
-				this.age = null;
-				this.accept = false;
-			}
-		},
-		mounted() {
-			this.user = this.props;
+    onReset() {
+      this.name = null;
+      this.age = null;
+      this.accept = false;
+    },
+  },
+  mounted() {
+    this.user = this.props;
 
-			//get group roles
-			this.getGroupRoles();
-		}
-	};
+    // get group roles
+    this.getGroupRoles();
+  },
+};
 </script>
 
 <style lang="scss" scoped>

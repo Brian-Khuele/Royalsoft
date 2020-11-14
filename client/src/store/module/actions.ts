@@ -1,73 +1,108 @@
-import { ActionTree } from "vuex";
-import { StoreInterface } from "../index";
-import { hydraSystemValues } from "./state";
-import axios from "axios";
+import { ActionTree } from 'vuex';
+import axios from 'axios';
+import { StoreInterface } from '../index';
+import { hydraSystemValues } from './state';
 
 const actions: ActionTree<hydraSystemValues, StoreInterface> = {
-	async setRaces(context) {
-		try {
-			const response = await axios.get("https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/races");
+  async setRaces(context) {
+    try {
+      const response = await axios.get('http://localhost:3001/api/races');
 
-			context.commit("setRaces", response.data);
-		} catch (error) {}
-	},
-	async setRoles(context) {
-		try {
-			const response = await axios.get("https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/roles");
+      context.commit('setRaces', response.data);
+    } catch (error) {
+      //
+    }
+  },
+  async setRoles(context) {
+    try {
+      const response = await axios.get('http://localhost:3001/api/roles');
 
-			context.commit("setRoles", response.data);
-		} catch (error) {}
-	},
-	async setCountries(context) {
-		try {
-			const response = await axios.get("https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/countries");
+      context.commit('setRoles', response.data);
+    } catch (error) {
+      //
+    }
+  },
+  async setCountries(context) {
+    try {
+      const response = await axios.get('http://localhost:3001/api/countries');
 
-			context.commit("setCountries", response.data);
-		} catch (error) {}
-	},
-	async setGrades(context) {
-		try {
-			const response = await axios.get("https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/grades");
+      context.commit('setCountries', response.data);
+    } catch (error) {
+      //
+    }
+  },
+  async setGrades(context) {
+    try {
+      const response = await axios.get('http://localhost:3001/api/grades');
 
-			context.commit("setGrades", response.data);
-		} catch (error) {}
-	},
-	async setSubjects(context) {
-		console.log("WE HAVE SUBJECTS");
-		try {
-			const response = await axios.get("https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/subjects");
+      context.commit('setGrades', response.data);
+    } catch (error) {
+      //
+    }
+  },
+  async setSubjects(context) {
+    try {
+      const response = await axios.get('http://localhost:3001/api/subjects');
 
-			context.commit("setSubjects", response.data);
-		} catch (error) {}
-	},
-	async setCombinations(context) {
-		try {
-			const response = await axios.get("https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/combinations");
+      context.commit('setSubjects', response.data);
+    } catch (error) {
+      //
+    }
+  },
+  async setCombinations(context) {
+    try {
+      const response = await axios.get('http://localhost:3001/api/combinations');
 
-			context.commit("setCombinations", response.data);
-		} catch (error) {}
-	},
-	async setGenders(context) {
-		try {
-			const response = await axios.get("https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/genders");
+      context.commit('setCombinations', response.data);
+    } catch (error) {
+      //
+    }
+  },
+  async setGenders(context) {
+    try {
+      const response = await axios.get('http://localhost:3001/api/genders');
 
-			context.commit("setGenders", response.data);
-		} catch (error) {}
-	},
-	async setIdTypes(context) {
-		try {
-			const response = await axios.get("https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/idtypes");
+      context.commit('setGenders', response.data);
+    } catch (error) {
+      //
+    }
+  },
+  async setIdTypes(context) {
+    try {
+      const response = await axios.get('http://localhost:3001/api/idtypes');
 
-			context.commit("setIdTypes", response.data);
-		} catch (error) {}
-	},
-	async setLanguages(context) {
-		try {
-			const response = await axios.get("https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/languages");
+      context.commit('setIdTypes', response.data);
+    } catch (error) {
+      //
+    }
+  },
+  async setLanguages(context) {
+    try {
+      const response = await axios.get('http://localhost:3001/api/languages');
 
-			context.commit("setLanguages", response.data);
-		} catch (error) {}
-	},
+      context.commit('setLanguages', response.data);
+    } catch (error) {
+      //
+    }
+  },
+  async setRelations(context) {
+    try {
+      const response = await axios.get('http://localhost:3001/api/relations');
+
+      context.commit('setRelations', response.data);
+    } catch (error) {
+      //
+    }
+  },
+  async setLearnerStatus(context) {
+    try {
+      const response = await axios.get('http://localhost:3001/api/learnerStatus');
+
+      context.commit('setLearnerStatus', response.data);
+    } catch (error) {
+      //
+    }
+  },
 };
 
 export default actions;

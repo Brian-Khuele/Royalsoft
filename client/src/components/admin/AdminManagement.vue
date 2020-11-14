@@ -48,48 +48,48 @@
 </template>
 
 <script>
-	import AdminRoles from "./AdminRoles";
-	import AdminStatus from "./AdminStatus";
-	import AdminUpdate from "./AdminUpdate";
+import AdminRoles from './AdminRoles';
+import AdminStatus from './AdminStatus';
+import AdminUpdate from './AdminUpdate';
 
-	export default {
-		name: "AdminManagement",
-		components: {
-			AdminRoles,
-			AdminStatus,
-			AdminUpdate
-		},
-		props: {
-			selectedUser: {
-				type: Object,
-				required: true
-			},
-			showDialog: {
-				type: Boolean,
-				required: true
-			}
-		},
-		data() {
-			return {
-				tab: "edit"
-			};
-		},
-		computed: {
-			fullWidth: {
-				get: function() {
-					return this.showDialog;
-				},
-				set: function(val) {
-					this.$emit("closeDialog", val);
-				}
-			}
-		},
-		methods: {
-			closeDialog() {
-				this.$emit("closeDialog", false);
-			}
-		}
-	};
+export default {
+  name: 'AdminManagement',
+  components: {
+    AdminRoles,
+    AdminStatus,
+    AdminUpdate,
+  },
+  props: {
+    selectedUser: {
+      type: Object,
+      required: true,
+    },
+    showDialog: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      tab: 'edit',
+    };
+  },
+  computed: {
+    fullWidth: {
+      get() {
+        return this.showDialog;
+      },
+      set(val) {
+        this.$emit('closeDialog', val);
+      },
+    },
+  },
+  methods: {
+    closeDialog() {
+      this.$emit('closeDialog', false);
+    },
+  },
+};
 </script>
 
 <style lang="sass" scoped>

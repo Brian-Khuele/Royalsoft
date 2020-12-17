@@ -4,10 +4,10 @@ $mainContent: whitesmoke;
 $notification: #afd310;
 
 * {
-	font-family: 'Nunito', sans-serif;
+	font-family: "Nunito", sans-serif;
 }
 .main {
-	font-family: 'Nunito', sans-serif;
+	font-family: "Nunito", sans-serif;
 }
 
 .sideBar {
@@ -34,7 +34,7 @@ $notification: #afd310;
 		display: flex;
 		flex-grow: 1;
 
-		.divLearners {
+		.divContent {
 			padding: 10px !important;
 			flex-grow: 1;
 			display: flex;
@@ -104,4 +104,18 @@ tbody tr:hover {
 
 .q-tab {
 	color: $subtleTouch !important;
+}
+
+.q-select {
+	color: black;
+}
+
+.q-manual-focusable--focused,
+.q-item--active {
+	background: $subtleTouch;
+	color: white;
+}
+
+.q-stepper__step-inner {
+	height: 78.5vh;
 }

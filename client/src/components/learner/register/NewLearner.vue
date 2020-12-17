@@ -1,264 +1,454 @@
 <template>
-  <div
-    class="q-pa-md"
-    style="width: 100%"
-  >
-    <q-stepper
-      v-model="step"
-      ref="stepper"
-      color="primary"
-      animated
-      class="main"
+  <div class="q-pa-md divContent">
+    <q-form
+      @submit.prevent.stop="onSubmit"
+      @reset.prevent.stop="onReset"
+      ref="newRegistration"
     >
-      <q-step
-        :name="1"
-        title="Capture learner details"
-        icon="edit"
-        :done="step > 1"
+      <q-stepper
+        v-model="step"
+        ref="stepper"
+        color="primary"
+        animated
+        class="newLearnerStepper"
+        keep-alive
+        full-height
       >
-        <q-form
-          @submit.prevent.stop="onSubmit"
-          @reset.prevent.stop="onReset"
-          class="row q-gutter-lg"
+        <q-step
+          :name="1"
+          title="Capture learner details"
+          icon="edit"
+          :done="step > 1"
         >
-          <div class="col">
-            <q-input
-              v-model="learner.student_number"
-              ref="student_number"
-              outlined
-              label="Student number"
-              dense
-              readonly
-              lazy-rules
-              :rules="[
-                (val) => (val && val.length > 0) || `Value may not be blank`,
-              ]"
-            />
-            <q-input
-              v-model="learner.name"
-              ref="firstname"
-              outlined
-              label="First name"
-              dense
-              lazy-rules
-              :rules="[
-                (val) => (val && val.length > 0) || `Value may not be blank`,
-              ]"
-            />
-            <q-input
-              v-model="learner.surname"
-              ref="lastname"
-              outlined
-              label="Last name"
-              dense
-              lazy-rules
-              :rules="[
-                (val) => (val && val.length > 0) || `Value may not be blank`,
-              ]"
-            />
-            <q-input
-              v-model="learner.id_number"
-              ref="id_number"
-              outlined
-              label="Id/Passport number"
-              dense
-              lazy-rules
-              :rules="[
-                (val) => (val && val.length > 0) || ' Value may not be blank ',
-              ]"
-            />
+          <div class="row q-gutter-lg">
+            <div class="col">
+              <q-input
+                v-model="learner.student_number"
+                ref="student_number"
+                outlined
+                label="Student number"
+                dense
+                readonly
+                lazy-rules
+                :rules="[
+                  (val) => (val && val.length > 0) || `Value may not be blank`,
+                ]"
+              />
+              <q-input
+                v-model="learner.name"
+                ref="learner_firstname"
+                outlined
+                label="First name"
+                dense
+                lazy-rules
+                :rules="[
+                  (val) => (val && val.length > 0) || `Value may not be blank`,
+                ]"
+              />
+              <q-input
+                v-model="learner.surname"
+                ref="learner_lastname"
+                outlined
+                label="Last name"
+                dense
+                lazy-rules
+                :rules="[
+                  (val) => (val && val.length > 0) || `Value may not be blank`,
+                ]"
+              />
+              <q-input
+                v-model="learner.id_number"
+                ref="learner_id_number"
+                outlined
+                label="Id/Passport number"
+                dense
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || ' Value may not be blank ',
+                ]"
+              />
+              <q-select
+                v-model="learner.grade"
+                ref="grade"
+                :options="getDropDownValues(getGrades)"
+                emit-value
+                map-options
+                outlined
+                label="Grade"
+                dense
+                :rules="[validate]"
+              />
+              <q-input
+                v-model="learner.email"
+                ref="learner_email"
+                outlined
+                label="Email"
+                dense
+                lazy-rules
+                :rules="[(val) => (val && val.length > 0) || ' vcbcv ']"
+              />
+              <q-select
+                v-model="learner.gender"
+                ref="learner_gender"
+                :options="getDropDownValues(getGenders)"
+                emit-value
+                map-options
+                outlined
+                label="Gender"
+                dense
+                lazy-rules
+                :rules="[validate]"
+              />
+            </div>
+            <div class="col">
+              <q-input
+                v-model="learner.cellphone_number"
+                ref="learner_cellphone_number"
+                outlined
+                label="Cellphone number"
+                dense
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || ' Value may not be empty ',
+                ]"
+              />
+              <q-select
+                v-model="learner.id_type"
+                ref="learner_id_type"
+                :options="getDropDownValues(getIdTypes)"
+                emit-value
+                map-options
+                outlined
+                label="Id type"
+                dense
+                lazy-rules
+                :rules="[validate]"
+              />
+              <q-select
+                v-model="learner.birth_country"
+                ref="learner_birth_country"
+                :options="getDropDownValues(getCountries)"
+                emit-value
+                map-options
+                outlined
+                label="Birth country"
+                dense
+                lazy-rules
+                :rules="[validate]"
+              />
+              <q-select
+                v-model="learner.home_language"
+                ref="learner_home_language"
+                :options="getDropDownValues(getLanguages)"
+                emit-value
+                map-options
+                outlined
+                label="Home language"
+                dense
+                lazy-rules
+                :rules="[validate]"
+              />
+              <q-select
+                v-model="learner.race"
+                ref="learner_race"
+                :options="getDropDownValues(getRaces)"
+                emit-value
+                map-options
+                outlined
+                label="Race"
+                dense
+                lazy-rules
+                :rules="[validate]"
+              />
+              <q-select
+                v-model="learner.combination"
+                ref="learner_combination"
+                :options="getDropDownValues(getCombinations)"
+                emit-value
+                map-options
+                outlined
+                label="Combination"
+                dense
+                lazy-rules
+                :rules="[validate]"
+              />
+            </div>
+          </div>
+        </q-step>
+
+        <q-step
+          :name="2"
+          title="Capture parent/guardian details"
+          caption="Optional"
+          icon="create_new_folder"
+          :done="step > 2"
+        >
+          <div class="row q-gutter-lg">
+            <div class="col">
+              <q-input
+                v-model="parent.parent_id"
+                ref="parent_id"
+                outlined
+                hint="enter new id/passport"
+                hide-hint
+                label="Parent Id"
+                dense
+                readonly
+                lazy-rules
+                :rules="[
+                  (val) => (val && val.length > 0) || 'value may not be empty',
+                ]"
+                input-class="dataInput"
+              />
+              <q-input
+                v-model="parent.firstname"
+                ref="firstname"
+                outlined
+                hint="The parent's name"
+                hide-hint
+                label="First name"
+                dense
+                lazy-rules
+                :rules="[
+                  (val) => (val && val.length > 0) || `Value may not be blank`,
+                ]"
+              />
+              <q-input
+                v-model="parent.lastname"
+                ref="lastname"
+                outlined
+                hint="The parent's surname"
+                hide-hint
+                label="Last name"
+                dense
+                lazy-rules
+                :rules="[
+                  (val) => (val && val.length > 0) || `Value may not be blank`,
+                ]"
+              />
+              <q-input
+                v-model="parent.email"
+                ref="id_number"
+                outlined
+                hint="Id or passport number"
+                hide-hint
+                label="Id/Passport number"
+                dense
+                lazy-rules
+                :rules="[
+                  (val) => (val && val.length > 0) || 'Value may not be blank',
+                ]"
+              />
+              <q-select
+                v-model="parent.gender"
+                ref="gender"
+                :options="getDropDownValues(getGenders)"
+                outlined
+                hint="Select a gender"
+                hide-hint
+                label="Gender"
+                dense
+                lazy-rules
+                :rules="[validate]"
+              />
+              <q-select
+                v-model="parent.relation"
+                ref="relation"
+                :options="getDropDownValues(getRelations)"
+                outlined
+                hint="Father"
+                hide-hint
+                label="Relation"
+                dense
+                lazy-rules
+                :rules="[validate]"
+              />
+              <q-select
+                v-model="parent.race"
+                ref="race"
+                :options="getDropDownValues(getRaces)"
+                outlined
+                hint="Select a Race"
+                hide-hint
+                label="Race"
+                dense
+                lazy-rules
+                :rules="[validate]"
+              />
+            </div>
+            <div class="col">
+              <q-input
+                v-model="parent.cellphone_number"
+                ref="cellphone_number"
+                outlined
+                hint="Type in the cellphone number"
+                hide-hint
+                label="Cellphone number"
+                dense
+                lazy-rules
+                :rules="[
+                  (val) => (val && val.length > 0) || 'Value may not be empty',
+                ]"
+              />
+              <q-input
+                v-model="parent.work_tel"
+                ref="work_tel"
+                outlined
+                hint="Type in the work tel number"
+                hide-hint
+                label="Work_tel number"
+                dense
+                lazy-rules
+                :rules="[
+                  (val) => (val && val.length > 0) || 'Value may not be empty',
+                ]"
+              />
+              <q-input
+                v-model="parent.home_tel"
+                ref="home_tel"
+                outlined
+                hint="Type in the home tel number"
+                hide-hint
+                label="Home tel number"
+                dense
+                lazy-rules
+                :rules="[
+                  (val) => (val && val.length > 0) || 'Value may not be empty',
+                ]"
+              />
+              <q-input
+                v-model="parent.occupation"
+                ref="occupation"
+                outlined
+                hint="Type in the occupation"
+                hide-hint
+                label="Occupation"
+                dense
+                lazy-rules
+                :rules="[
+                  (val) => (val && val.length > 0) || 'Value may not be empty',
+                ]"
+              />
+              <q-input
+                v-model="parent.employer_name"
+                ref="employer_name"
+                outlined
+                hint="Employer name"
+                hide-hint
+                label="Employer name"
+                dense
+                lazy-rules
+                :rules="[
+                  (val) => (val && val.length > 0) || 'Value may not be empty',
+                ]"
+              />
+              <q-input
+                v-model="parent.employer_tel"
+                ref="employer_tel"
+                outlined
+                hint="Type in the employer's tel"
+                hide-hint
+                label="Employer tel number"
+                dense
+                lazy-rules
+                :rules="[
+                  (val) => (val && val.length > 0) || 'Value may not be empty',
+                ]"
+              />
+              <q-input
+                v-model="parent.employer_address"
+                type="textarea"
+                ref="employer_address"
+                outlined
+                hint="Employer's address"
+                hide-hint
+                label="Employer's address"
+                dense
+                lazy-rules
+                :rules="[
+                  (val) => (val && val.length > 0) || 'Value may not be empty',
+                ]"
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="off"
+                spellcheck="false"
+              />
+            </div>
+          </div>
+        </q-step>
+
+        <q-step :name="3" title="Select subjects" icon="assignment">
+          <div class="q-pa-lg subjects">
+            Available subjects
             <q-select
-              v-model="learner.grade"
-              ref="grade"
-              :options="
-                getGrades.map((obj) => ({
-                  label: obj.description,
-                  value: obj.id,
-                }))
-              "
+              v-model="selectedSubjects"
+              :options="getDropDownValues(getSubjects)"
+              color="primary"
               emit-value
               map-options
-              outlined
-              label="Grade"
-              dense
-              :rules="[validate]"
-            />
-            <q-input
-              v-model="learner.email"
-              ref="email"
-              outlined
-              label="Email"
-              dense
-              lazy-rules
-              :rules='[ (val) => (val && val.length > 0) || " vcbcv "]'
-            />
-            <q-select
-              v-model="learner.gender"
-              ref="gender"
-              :options="
-                getGenders.map((obj) => ({
-                  label: obj.description,
-                  value: obj.id,
-                }))
-              "
-              emit-value
-              map-options
-              outlined
-              label="Gender"
-              dense
-              lazy-rules
-              :rules="[validate]"
+              multiple
+              filled
             />
           </div>
-          <div class="col">
-            <q-input
-              v-model="learner.cellphone_number"
-              ref="cellphone_number"
-              outlined
-              label="Cellphone number"
-              dense
-              lazy-rules
-              :rules='[ (val)=> (val && val.length > 0) || " Value may not be empty " , ]'
-            />
-            <q-select
-              v-model="learner.id_type"
-              ref="id_type"
-              :options="
-                getIdTypes.map((obj) => ({
-                  label: obj.description,
-                  value: obj.id,
-                }))
-              "
-              emit-value
-              map-options
-              outlined
-              label="Id type"
-              dense
-              lazy-rules
-              :rules="[validate]"
-            />
-            <q-select
-              v-model="learner.birth_country"
-              ref="birth_country"
-              :options="
-                getCountries.map((obj) => ({
-                  label: obj.description,
-                  value: obj.id,
-                }))
-              "
-              emit-value
-              map-options
-              outlined
-              label="Birth country"
-              dense
-              lazy-rules
-              :rules="[validate]"
-            />
-            <q-select
-              v-model="learner.home_language"
-              ref="home_language"
-              :options="
-                getLanguages.map((obj) => ({
-                  label: obj.description,
-                  value: obj.id,
-                }))
-              "
-              emit-value
-              map-options
-              outlined
-              label="Home language"
-              dense
-              lazy-rules
-              :rules="[validate]"
-            />
-            <q-select
-              v-model="learner.race"
-              ref="race"
-              :options="
-                getRaces.map((obj) => ({
-                  label: obj.description,
-                  value: obj.id,
-                }))
-              "
-              emit-value
-              map-options
-              outlined
-              label="Race"
-              dense
-              lazy-rules
-              :rules="[validate]"
-            />
-            <q-select
-              v-model="learner.combination"
-              ref="combination"
-              :options="
-                getCombinations.map((obj) => ({
-                  label: obj.description,
-                  value: obj.id,
-                }))
-              "
-              emit-value
-              map-options
-              outlined
-              label="Combination"
-              dense
-              lazy-rules
-              :rules="[validate]"
+        </q-step>
+
+        <q-step
+          :name="4"
+          title="Upload documents"
+          icon="upload"
+          class="uploadDocuments"
+        >
+          <div class="row q-gutter-lg">
+            <q-file
+              v-model="file"
+              label="Pick one file"
+              filled
+              multiple
+              style="max-width: 300px"
             />
           </div>
-        </q-form>
-      </q-step>
+        </q-step>
 
-      <q-step
-        :name="2"
-        title="Capture parent/guardian details"
-        caption="Optional"
-        icon="create_new_folder"
-        :done="step > 2"
-      >
-        An ad group contains one or more ads which target a shared set of
-        keywords.
-      </q-step>
+        <q-step :name="5" title="Review registration" icon="add_comment">
+          <div class="btnActions">
+            <q-btn
+              label="Save"
+              color="primary"
+              @click="onSubmit"
+              :disable="learner.student_number == 0"
+              :loading="loading"
+            />
+            <q-btn
+              label="Clear all"
+              color="primary"
+              flat
+              class="q-ml-sm"
+              @click="onReset"
+            />
+          </div>
+        </q-step>
 
-      <q-step
-        :name="3"
-        title="Select subjects"
-        icon="assignment"
-      >
-        This step won"t show up because it is disabled.
-      </q-step>
-
-      <q-step
-        :name="4"
-        title="Review registration"
-        icon="add_comment"
-      >
-        Try out different ad text to see what brings in the most customers, and
-        learn how to enhance your ads using features like ad extensions. If you
-        run into any problems with your ads, find out how to tell if they"re
-        running and how to resolve approval issues.
-      </q-step>
-
-      <template v-slot:navigation>
-        <q-stepper-navigation>
-          <q-btn
-            @click="$refs.stepper.next()"
-            color="primary"
-            :label='step === 4 ? "Finish" : "Continue"'
-          />
-          <q-btn
-            v-if="
-            step
-          > 1"
-            flat
-            color="primary"
-            @click="$refs.stepper.previous()"
-            label="Back"
-            class="q-ml-sm"
-          />
-        </q-stepper-navigation>
-      </template>
-    </q-stepper>
+        <template v-slot:navigation>
+          <q-stepper-navigation>
+            <q-btn
+              @click="$refs.stepper.next()"
+              color="primary"
+              :label="step === 4 ? 'Finish' : 'Continue'"
+            />
+            <q-btn
+              v-if="step > 1"
+              flat
+              color="primary"
+              @click="$refs.stepper.previous()"
+              label="Back"
+              class="q-ml-sm"
+            />
+          </q-stepper-navigation>
+        </template>
+      </q-stepper>
+    </q-form>
   </div>
 </template>
 
@@ -270,8 +460,13 @@ export default {
     return {
       step: 1,
       learner: {},
+      parent: {},
+      selectedSubjects: [],
+      loading: false,
+      file: [],
     };
   },
+
   computed: {
     ...mapGetters("module", [
       "getGrades",
@@ -282,11 +477,50 @@ export default {
       "getIdTypes",
       "getCountries",
       "getCombinations",
+      "getRelations",
     ]),
   },
   methods: {
     onSubmit() {
-      alert("clicked");
+      const formData = new FormData();
+      //TODO: Validate all the user input before submitting
+
+      const registrationData = {
+        learner: this.learner,
+        parent: this.parent,
+        subjects: this.selectedSubjects,
+      };
+      console.log("uploading", registrationData);
+
+      this.file.forEach((value) => {
+        console.log(value);
+        formData.append("files", value);
+      });
+
+      formData.append("learner", JSON.stringify(this.learner));
+      formData.append("parent", JSON.stringify(this.parent));
+      formData.append("subjects", JSON.stringify(this.selectedSubjects));
+
+      this.$axios
+        .post("http://localhost:3001/api/register", formData)
+        .then((result) => {
+          console.log(result.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      /*       this.$refs.newRegistration.validate().then((success) => {
+        if (success) {
+          //TODO: the information has been succesfully validated, send it to the backend
+          this.$axios.post("/register", formData);
+        } else {
+          alert("please check that all your info is correct!");
+        }
+      }); */
+
+      // to reset validations:
+      //this.$refs.newRegistration.resetValidation();
     },
     onReset() {
       console.log("");
@@ -295,12 +529,20 @@ export default {
       console.log(value);
       if (!value) return "Make a selection";
     },
+    getDropDownValues(object) {
+      if (!object) return [];
+
+      return object.map((obj) => ({
+        label: obj.description,
+        value: obj.id,
+      }));
+    },
+    onFileRejected() {
+      alert("File upload unsuccessful, please try again");
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.main {
-  border: 1px solid black !important;
-}
 </style>

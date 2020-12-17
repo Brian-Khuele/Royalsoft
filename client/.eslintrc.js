@@ -34,16 +34,16 @@ module.exports = {
 		"plugin:@typescript-eslint/eslint-recommended",
 		"plugin:@typescript-eslint/recommended",
 		// consider disabling this class of rules if linting takes too long
-		//"plugin:@typescript-eslint/recommended-requiring-type-checking",
+		"plugin:@typescript-eslint/recommended-requiring-type-checking",
 
 		// Uncomment any of the lines below to choose desired strictness,
 		// but leave only one uncommented!
 		// See https://eslint.vuejs.org/rules/#available-rules
 		"plugin:vue/essential", // Priority A: Essential (Error Prevention)
-		//'plugin:vue/strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
-		//'plugin:vue/recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
+		// 'plugin:vue/strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
+		// 'plugin:vue/recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
 
-		"airbnb-base",
+		//"airbnb-base"
 	],
 
 	plugins: [
@@ -66,30 +66,25 @@ module.exports = {
 
 	// add your custom rules here
 	rules: {
-		"no-param-reassign": "off",
+		/* 		"no-param-reassign": "off",
+
 		"import/first": "off",
 		"import/named": "error",
 		"import/namespace": "error",
 		"import/default": "error",
 		"import/export": "error",
 		"import/extensions": "off",
-	  "import/no-unresolved": "off",
+		"import/no-unresolved": "off",
 		"import/no-extraneous-dependencies": "off",
 		"import/prefer-default-export": "off",
-		"prefer-promise-reject-errors": "off", 
+		"prefer-promise-reject-errors": "off", */
 		//"comma-dangle": ["error", "never"],
 		// TypeScript
+		quotes: ["warn", "auto"],
 		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/class-name-casing": "off",
 		"@typescript-eslint/camelcase": "off",
 		// allow debugger during development only
 		"no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
-		"no-tabs": 0,
-		"quotes": ["error","single"],
-    "no-unused-vars": ["warn", {"vars":"local ", "args":"none"}],
-    
-    "vue/no-parsing-error": ["warn", {
-      "missing-whitespace-between-attributes": false,
-    }]
 	},
 };

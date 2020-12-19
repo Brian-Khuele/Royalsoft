@@ -44,16 +44,16 @@
 </template>
 
 <script>
-import AdminManagement from "./admin/adminManagement";
+import AdminManagement from './admin/adminManagement';
 
 export default {
   components: { AdminManagement },
   data() {
     return {
-      filterMsg: "",
-      filter: "",
+      filterMsg: '',
+      filter: '',
       options: [],
-      model: "",
+      model: '',
       columns: [],
       data: [],
       visibleColumns: [],
@@ -72,18 +72,18 @@ export default {
   mounted() {
     // get all the learners in the school
     this.$axios
-      .get("https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/employees")
+      .get('https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/employees')
       .then((response) => {
         this.columns = Object.keys(response.data[0]).map((column) => ({
           name: column,
-          label: column.split("_").join(" ").toUpperCase(),
+          label: column.split('_').join(' ').toUpperCase(),
           field: column,
           sortable: true,
-          align: "left",
+          align: 'left',
         }));
 
         this.visibleColumns = this.columns.map((column, index) =>
-          index < this.columns.length - 1 ? column.name : ""
+          index < this.columns.length - 1 ? column.name : ''
         );
 
         this.data = response.data;

@@ -69,12 +69,12 @@
 </template>
 
 <script>
-import LearnerUpdate from "./LearnerUpdate";
-import LearnerStatus from "./LearnerStatus";
-import LearnerSubjects from "./LearnerSubjects";
+import LearnerUpdate from './LearnerUpdate';
+import LearnerStatus from './LearnerStatus';
+import LearnerSubjects from './LearnerSubjects';
 
 export default {
-  name: "LearnerManagement",
+  name: 'LearnerManagement',
   components: {
     LearnerUpdate,
     LearnerStatus,
@@ -92,7 +92,7 @@ export default {
   },
   data() {
     return {
-      tab: "update",
+      tab: 'update',
     };
   },
   computed: {
@@ -101,13 +101,13 @@ export default {
         return this.showDialog;
       },
       set(val) {
-        this.$emit("closeDialog", val);
+        this.$emit('closeDialog', val);
       },
     },
   },
   methods: {
     closeDialog() {
-      this.$emit("closeDialog", false);
+      this.$emit('closeDialog', false);
     },
   },
 };

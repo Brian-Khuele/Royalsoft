@@ -29,6 +29,10 @@ const routes: RouteConfig[] = [
             path: 'applications',
             component: () => import('components/applications.vue'),
           },
+          {
+            path: 'discipline',
+            component: () => import('components/discipline/Discipline.vue'),
+          },
         ],
       },
     ],

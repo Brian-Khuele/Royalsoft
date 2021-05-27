@@ -12,10 +12,11 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "vue":"2.6.12",
     "@quasar/extras": "^1.0.0",
     "@vue/composition-api": "^0.5.0",
     "axios": "^0.18.1",
+    "jspdf": "^2.2.0",
+    "jspdf-autotable": "^3.5.13",
     "quasar": "^1.9.5",
     "register-service-worker": "^1.7.1",
     "vue-i18n": "^8.0.0",

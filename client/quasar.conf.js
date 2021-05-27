@@ -75,7 +75,7 @@ module.exports = configure((ctx) => ({
           loader: 'eslint-loader',
           exclude: /node_modules/,
           options: {
-            fix: true,
+            //fix: true,
           },
         });
       }

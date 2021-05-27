@@ -71,7 +71,7 @@ export async function up(knex: Knex): Promise<void> {
       //table.specificType("permissions", "json ARRAY");
     })
     .createTable("learner", (table) => {
-      table.integer("student_number").primary().notNullable();
+      table.bigIncrements("student_number").primary().defaultTo(1000);
       table.string("name", 255).notNullable();
       table.string("surname", 255).notNullable();
       table.string("id_number").notNullable();
@@ -88,7 +88,8 @@ export async function up(knex: Knex): Promise<void> {
         .integer("status")
         .references("id")
         .inTable("learner_status")
-        .notNullable();
+        .notNullable()
+        .defaultTo(1);
       table.timestamp("created_at").defaultTo(knex.fn.now());
       table.timestamp("updated_at").defaultTo(knex.fn.now());
     })

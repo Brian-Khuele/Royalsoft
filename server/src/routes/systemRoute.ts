@@ -40,5 +40,6 @@ router.get('/idtypes', getIdtypes);
 router.get('/languages', getLanguages);
 router.get('/relations', getRelations);
 router.get('/learnerStatus', getLearnerStatus);
+router.get('/', getLearnerStatus);
 
 export default router;

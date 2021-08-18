@@ -3,7 +3,7 @@ export const menuItems = [
     title: 'Learners',
     caption: 'view & manage learner info',
     icon: 'supervisor_account',
-    to: '/learners',
+    to: '/',
     subItems: [
       {
         title: 'new learner',

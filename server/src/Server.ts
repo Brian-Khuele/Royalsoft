@@ -7,10 +7,9 @@ import express, { Request, Response, NextFunction } from 'express';
 import { BAD_REQUEST } from 'http-status-codes';
 import 'express-async-errors';
 
-import BaseRouter from './routes';
-import logger from '@shared/Logger';
+import BaseRouter from 'routes/index';
+import logger from 'shared/Logger';
 import cors from 'cors';
-import pg from 'db/knex';
 
 // Init express
 const app = express();

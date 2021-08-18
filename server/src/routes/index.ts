@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import learner from './learnerRoute';
-import parent from './parentRoute';
-import staff from './staffRoute';
-import system from './systemRoute';
-import onlineApplication from './onlineApplicationsRoute';
+import learner from 'routes/learnerRoute';
+import parent from 'routes/parentRoute';
+import staff from 'routes/staffRoute';
+import system from 'routes/systemRoute';
+import onlineApplication from 'routes/onlineApplicationsRoute';
 
 // Init router and path
 const router = Router();

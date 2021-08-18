@@ -1,121 +1,207 @@
 // app global css in SCSS form
-$subtleTouch: #212c3d;
-$mainContent: whitesmoke;
-$notification: #afd310;
+$subtleTouch: hsl(200, 50, 10);
+$mainContent: rgb(17, 44, 56);
+$notification: hsl(71, 47%, 41%);
+$upperShadow: rgb(16, 61, 82);
+$lowerShadow: rgb(25, 26, 27);
+$boxShadow: -3px -3px 4px $upperShadow, 3px 3px 4px $lowerShadow;
+$inputBoxShadow: inset -3px -3px 4px $upperShadow, inset 3px 3px 4px $lowerShadow;
 
 * {
-	font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 .main {
-	font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
+  background: $mainContent;
 }
 
 .sideBar {
-	color: white;
+  color: white;
 }
 
 .text-caption {
-	color: rgb(189, 183, 183);
+  color: $primary;
 }
 
 .q-icon {
-	color: $primary;
+  color: rgb(135, 158, 168);
 }
 
 .bg-mainColor {
-	background: #212c3d;
+  background: $mainContent;
+}
+
+.q-field__control::before {
+  color: white !important;
+  border: none !important;
+  outline: none !important;
+
+  box-shadow: $inputBoxShadow;
 }
 
 .mainContent {
-	display: flex;
-	background: $mainContent;
+  display: flex;
+  background: $mainContent;
 
-	.routerView {
-		display: flex;
-		flex-grow: 1;
+  .routerView {
+    display: flex;
+    flex-grow: 1;
 
-		.divContent {
-			padding: 10px !important;
-			flex-grow: 1;
-			display: flex;
-			flex-direction: column;
-			color: black;
+    .divContent {
+      padding: 10px !important;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      color: black;
 
-			.tableLearners {
-				color: black !important;
-				margin-top: 10px;
-				box-shadow: 0px 0px 4px 1px black;
-			}
-		}
-	}
+      .q-stepper {
+        background: $mainContent;
+        box-shadow: $boxShadow;
+        border-radius: 10px;
+      }
+
+      .tableLearners {
+        color: black !important;
+        margin-top: 10px;
+        box-shadow: 0px 0px 4px 1px black;
+      }
+    }
+  }
+}
+
+.q-header {
+  margin: 8spx;
+  box-shadow: $boxShadow;
+  border-radius: 10px;
 }
 
 .q-toolbar__title {
-	color: white;
+  color: white;
 }
 
 .q-field__native {
-	color: white !important;
+  color: white !important;
 }
 
 .q-field__label {
-	color: $primary !important;
+  color: $primary !important;
 }
 
 .q-card {
-	background: $mainContent;
-	color: black;
-	border: 2px solid $subtleTouch;
+  color: white;
+  background: $mainContent;
+  box-shadow: $inputBoxShadow;
+
+  .excel {
+    margin-left: 10px;
+  }
 }
 
 th {
-	font-weight: bold !important;
+  font-weight: bold !important;
+  width: 10% !important;
 }
 
 tbody tr:hover {
-	cursor: pointer !important;
-	background: rgb(241, 178, 61);
+  cursor: pointer !important;
+  background: rgb(241, 178, 61);
+  color: hsl(0, 0, 0);
+  font-weight: bold;
 }
 
 .learnerTable table thead {
-	color: $mainContent;
+  color: $mainContent;
 }
 .learnerTable table {
-	background: $primary;
-	color: black;
+  background: $primary;
+  color: black;
 
-	tr:hover {
-		cursor: default !important;
-		background: none !important;
-	}
+  tr:hover {
+    cursor: default !important;
+    background: none !important;
+  }
 }
 
 .q-field__control {
-	background: $subtleTouch;
+  background: $subtleTouch;
 }
 
 .q-item {
-	border-top: 1px solid rgb(61, 57, 57);
+  color: white;
+}
+
+.q-list {
+  border: none;
+  outline: none;
+
+  .q-link:hover {
+    background: $primary;
+    cursor: pointer;
+    transition: ease-in 300ms;
+
+    .q-icon {
+      color: $mainContent;
+    }
+
+    .q-item__label--caption {
+      color: black;
+    }
+  }
+}
+
+.q-hoverable {
+  border: none;
+  border-radius: 10px;
+}
+
+.q-expansion-item {
+  border-radius: 10px;
+  margin: 8px 8px 0px 8px;
+  box-shadow: $boxShadow;
+
+  .q-expansion-item {
+    border-radius: unset;
+    margin: 0;
+    box-shadow: $boxShadow;
+  }
 }
 
 .q-tab-panel {
-	background: $mainContent;
+  background: $mainContent;
 }
 
 .q-tab {
-	color: $subtleTouch !important;
+  color: $subtleTouch !important;
 }
 
 .q-select {
-	color: black;
-}
-
-.q-manual-focusable--focused,
-.q-item--active {
-	background: $subtleTouch;
-	color: white;
+  color: black;
 }
 
 .q-stepper__step-inner {
-	height: 78.5vh;
+  height: 78.5vh;
+}
+
+.q-table__container {
+  background: $mainContent;
+  color: white;
+  margin: 20px 8px;
+  border: none !important;
+  outline: none !important;
+  box-shadow: $boxShadow;
+  border-radius: 10px;
+
+  .q-field__control::before {
+    color: white !important;
+    border: none !important;
+    outline: none !important;
+
+    box-shadow: $inputBoxShadow;
+  }
+}
+
+.q-tab__label {
+  color: white;
 }

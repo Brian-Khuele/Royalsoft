@@ -77,72 +77,72 @@
 </template>
 
 <script>
-  import ApplicationManagement from './applications/ApplicationManagement';
+import ApplicationManagement from './applications/ApplicationManagement';
 
-  export default {
-    name: 'Applications',
-    components: { ApplicationManagement },
-    data() {
-      return {
-        filterMsg: '',
-        filter: '',
-        options: [],
-        model: '',
-        columns: [],
-        data: [],
-        visibleColumns: [],
-        showDialog: false,
-        selectedApplication: {},
-      };
+export default {
+  name: 'Applications',
+  components: { ApplicationManagement },
+  data() {
+    return {
+      filterMsg: '',
+      filter: '',
+      options: [],
+      model: '',
+      columns: [],
+      data: [],
+      visibleColumns: [],
+      showDialog: false,
+      selectedApplication: {},
+    };
+  },
+  methods: {
+    rowClicked(event, props) {
+      // Show application management dialog
+      this.showDialog = true;
+      this.selectedApplication = this.data.filter(
+        (object) => object.parent_id == props.row.parent_id
+      )[0];
     },
-    methods: {
-      rowClicked(event, props) {
-        // Show application management dialog
-        this.showDialog = true;
-        this.selectedApplication = this.data.filter(
-          (object) => object.parent_id == props.row.parent_id
-        )[0];
-      },
-      table(input) {
-        // console.log(input);
-        return Object.keys(input).map((column) => ({
-          name: column,
-          label: column
+    table(input) {
+      // console.log(input);
+      return Object.keys(input).map((column) => ({
+        name: column,
+        label: column
+          .split('_')
+          .join(' ')
+          .toUpperCase(),
+        field: column,
+        sortable: true,
+        align: 'left',
+      }));
+    },
+  },
+  mounted() {
+    // get all the learners in the school
+    this.$axios
+      .get('http://localhost:3001/onlineApplications')
+      .then((response) => {
+        this.columns = Object.keys(response.data[0].parent).map((key) => ({
+          name: key,
+          label: key
             .split('_')
             .join(' ')
             .toUpperCase(),
-          field: column,
+          field: (row) => row.parent[key],
           sortable: true,
           align: 'left',
         }));
-      },
-    },
-    mounted() {
-      // get all the learners in the school
-      this.$axios
-        .get('http://localhost:3001/onlineApplications')
-        .then((response) => {
-          this.columns = Object.keys(response.data[0].parent).map((key) => ({
-            name: key,
-            label: key
-              .split('_')
-              .join(' ')
-              .toUpperCase(),
-            field: (row) => row.parent[key],
-            sortable: true,
-            align: 'left',
-          }));
-          this.data = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-  };
+        this.data = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  .expandRow:hover {
-    background: none;
-  }
+.expandRow:hover {
+  background: none;
+}
 </style>

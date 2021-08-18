@@ -14,7 +14,7 @@ const routes: RouteConfig[] = [
             component: () => import('components/learner/register/NewLearner.vue'),
           },
           {
-            path: 'learners',
+            path: '',
             component: () => import('components/Learners.vue'),
           },
           {

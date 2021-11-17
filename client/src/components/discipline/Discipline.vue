@@ -1,9 +1,9 @@
 <template>
-  <DataTable :endPoint="endPoint" :optionColumns="optionColumns" tableTitle="Parents/Guardians">
+  <DataTable :endPoint="endPoint" :optionColumns="optionColumns" tableTitle="Discipline">
     <template v-slot="p">
       <component
         :is="DialogComponent"
-        :selectedUser="p.selectedPerson"
+        :selectedLearner="p.selectedPerson"
         :showDialog="p.showDialog"
         @closeDialog="p.closeDialog"
       />
@@ -12,17 +12,19 @@
 </template>
 
 <script>
-  import DataTable from './dataTable/DataTable';
+  import DataTable from '../dataTable/DataTable';
+  import LearnerManagement from '../learner/LearnerManagement';
 
   export default {
     components: {
       DataTable,
+      LearnerManagement,
     },
     data() {
       return {
         fullWidth: false,
-        endPoint: 'http://localhost:3001/parent',
-        DialogComponent: 'AdminManagement',
+        endPoint: 'http://localhost:3001/api/learners',
+        DialogComponent: 'LearnerManagement',
         optionColumns: [
           'grade',
           'gender',

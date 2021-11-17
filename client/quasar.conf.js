@@ -66,16 +66,12 @@ module.exports = configure((ctx) => ({
     // extractCSS: false,
 
     // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
-    extendWebpack(cfg) {
-      // linting is slow in TS projects, we execute it only for production builds
-      if (ctx.prod) {
-        cfg.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /node_modules/,
-        });
-      }
+    chainWebpack(chain) {
+      chain.module
+        .rule('pug')
+        .test(/\.pug$/)
+        .use('pug-plain-loader')
+        .loader('pug-plain-loader');
     },
   },
 

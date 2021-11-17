@@ -14,7 +14,7 @@ const routes: RouteConfig[] = [
             component: () => import('components/learner/register/NewLearner.vue'),
           },
           {
-            path: 'learners',
+            path: '',
             component: () => import('components/Learners.vue'),
           },
           {
@@ -28,6 +28,10 @@ const routes: RouteConfig[] = [
           {
             path: 'applications',
             component: () => import('components/applications.vue'),
+          },
+          {
+            path: 'discipline',
+            component: () => import('components/discipline/Discipline.vue'),
           },
         ],
       },

@@ -6,7 +6,7 @@ import { hydraSystemValues } from './state';
 const actions: ActionTree<hydraSystemValues, StoreInterface> = {
   async setRaces(context) {
     try {
-      const response = await axios.get('http://localhost:3001/api/races');
+      const response = await axios.get('http://localhost:3001/system/races');
 
       context.commit('setRaces', response.data);
     } catch (error) {
@@ -15,7 +15,7 @@ const actions: ActionTree<hydraSystemValues, StoreInterface> = {
   },
   async setRoles(context) {
     try {
-      const response = await axios.get('http://localhost:3001/api/roles');
+      const response = await axios.get('http://localhost:3001/system/roles');
 
       context.commit('setRoles', response.data);
     } catch (error) {
@@ -24,7 +24,7 @@ const actions: ActionTree<hydraSystemValues, StoreInterface> = {
   },
   async setCountries(context) {
     try {
-      const response = await axios.get('http://localhost:3001/api/countries');
+      const response = await axios.get('http://localhost:3001/system/countries');
 
       context.commit('setCountries', response.data);
     } catch (error) {
@@ -33,7 +33,7 @@ const actions: ActionTree<hydraSystemValues, StoreInterface> = {
   },
   async setGrades(context) {
     try {
-      const response = await axios.get('http://localhost:3001/api/grades');
+      const response = await axios.get('http://localhost:3001/system/grades');
 
       context.commit('setGrades', response.data);
     } catch (error) {
@@ -42,7 +42,7 @@ const actions: ActionTree<hydraSystemValues, StoreInterface> = {
   },
   async setSubjects(context) {
     try {
-      const response = await axios.get('http://localhost:3001/api/subjects');
+      const response = await axios.get('http://localhost:3001/system/subjects');
 
       context.commit('setSubjects', response.data);
     } catch (error) {
@@ -51,7 +51,7 @@ const actions: ActionTree<hydraSystemValues, StoreInterface> = {
   },
   async setCombinations(context) {
     try {
-      const response = await axios.get('http://localhost:3001/api/combinations');
+      const response = await axios.get('http://localhost:3001/system/combinations');
 
       context.commit('setCombinations', response.data);
     } catch (error) {
@@ -60,7 +60,7 @@ const actions: ActionTree<hydraSystemValues, StoreInterface> = {
   },
   async setGenders(context) {
     try {
-      const response = await axios.get('http://localhost:3001/api/genders');
+      const response = await axios.get('http://localhost:3001/system/genders');
 
       context.commit('setGenders', response.data);
     } catch (error) {
@@ -69,7 +69,7 @@ const actions: ActionTree<hydraSystemValues, StoreInterface> = {
   },
   async setIdTypes(context) {
     try {
-      const response = await axios.get('http://localhost:3001/api/idtypes');
+      const response = await axios.get('http://localhost:3001/system/idtypes');
 
       context.commit('setIdTypes', response.data);
     } catch (error) {
@@ -78,7 +78,7 @@ const actions: ActionTree<hydraSystemValues, StoreInterface> = {
   },
   async setLanguages(context) {
     try {
-      const response = await axios.get('http://localhost:3001/api/languages');
+      const response = await axios.get('http://localhost:3001/system/languages');
 
       context.commit('setLanguages', response.data);
     } catch (error) {
@@ -87,7 +87,7 @@ const actions: ActionTree<hydraSystemValues, StoreInterface> = {
   },
   async setRelations(context) {
     try {
-      const response = await axios.get('http://localhost:3001/api/relations');
+      const response = await axios.get('http://localhost:3001/system/relations');
 
       context.commit('setRelations', response.data);
     } catch (error) {
@@ -96,7 +96,7 @@ const actions: ActionTree<hydraSystemValues, StoreInterface> = {
   },
   async setLearnerStatus(context) {
     try {
-      const response = await axios.get('http://localhost:3001/api/learnerStatus');
+      const response = await axios.get('http://localhost:3001/system/learnerStatus');
 
       context.commit('setLearnerStatus', response.data);
     } catch (error) {

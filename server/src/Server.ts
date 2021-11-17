@@ -1,16 +1,15 @@
-import cookieParser from "cookie-parser";
-import morgan from "morgan";
-import path from "path";
-import helmet from "helmet";
+import cookieParser from 'cookie-parser';
+import morgan from 'morgan';
+import path from 'path';
+import helmet from 'helmet';
 
-import express, { Request, Response, NextFunction } from "express";
-import { BAD_REQUEST } from "http-status-codes";
-import "express-async-errors";
+import express, { Request, Response, NextFunction } from 'express';
+import { BAD_REQUEST } from 'http-status-codes';
+import 'express-async-errors';
 
-import BaseRouter from "./routes";
-import logger from "@shared/Logger";
-import cors from "cors";
-import pg from "db/knex";
+import BaseRouter from 'routes/index';
+import logger from 'shared/Logger';
+import cors from 'cors';
 
 // Init express
 const app = express();
@@ -24,17 +23,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Show routes called in console during development
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
 }
 
 // Security
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === 'production') {
   app.use(helmet());
 }
 
 // Add APIs
-app.use("/api", BaseRouter);
+app.use(BaseRouter);
 
 // Print API errors
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

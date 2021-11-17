@@ -77,17 +77,17 @@
 </template>
 
 <script>
-import ApplicationManagement from "./applications/ApplicationManagement";
+import ApplicationManagement from './applications/ApplicationManagement';
 
 export default {
-  name: "Applications",
+  name: 'Applications',
   components: { ApplicationManagement },
   data() {
     return {
-      filterMsg: "",
-      filter: "",
+      filterMsg: '',
+      filter: '',
       options: [],
-      model: "",
+      model: '',
       columns: [],
       data: [],
       visibleColumns: [],
@@ -107,24 +107,30 @@ export default {
       // console.log(input);
       return Object.keys(input).map((column) => ({
         name: column,
-        label: column.split("_").join(" ").toUpperCase(),
+        label: column
+          .split('_')
+          .join(' ')
+          .toUpperCase(),
         field: column,
         sortable: true,
-        align: "left",
+        align: 'left',
       }));
     },
   },
   mounted() {
     // get all the learners in the school
     this.$axios
-      .get("https://virtserver.swaggerhub.com/r8926/hydraX/1-oas3/applications")
+      .get('http://localhost:3001/onlineApplications')
       .then((response) => {
         this.columns = Object.keys(response.data[0].parent).map((key) => ({
           name: key,
-          label: key.split("_").join(" ").toUpperCase(),
+          label: key
+            .split('_')
+            .join(' ')
+            .toUpperCase(),
           field: (row) => row.parent[key],
           sortable: true,
-          align: "left",
+          align: 'left',
         }));
         this.data = response.data;
       })

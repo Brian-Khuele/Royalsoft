@@ -11,6 +11,7 @@ import {
   getRelations,
   getRoles,
   getSubjects,
+  getGradeSubjects,
 } from 'src/controllers/systemController';
 
 import multer from 'multer';
@@ -40,5 +41,6 @@ router.get('/idtypes', getIdtypes);
 router.get('/languages', getLanguages);
 router.get('/relations', getRelations);
 router.get('/learnerStatus', getLearnerStatus);
+router.get('/subjectsInGrade', getGradeSubjects);
 
 export default router;

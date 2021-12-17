@@ -1,8 +1,7 @@
 import { Router } from 'express';
 import {
   getLearners,
-  updateLearner,
-  setLearnerStatus,
+  //updateLearner,
   setLearnerSubjects,
   registerLearner,
 } from 'src/controllers/learnerController';
@@ -24,8 +23,7 @@ const upload = multer({ storage });
 const router = Router();
 
 router.get('/', getLearners);
-router.post('/:id', updateLearner);
-router.post('/status', setLearnerStatus);
+//router.post('/:id', updateLearner);
 router.post('/subjects', setLearnerSubjects);
 router.post('/register', upload.array('files'), registerLearner);
 

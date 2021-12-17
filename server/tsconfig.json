@@ -22,6 +22,6 @@
     "types": ["node"],
     "typeRoots": ["./node_modules/@types"]
   },
-  "include": ["src/**/*.ts", "spec/**/*.ts", "./*.ts"],
+  "include": ["src/**/*.ts", "spec/**/*.ts", "./*.ts", "knexfile.ts"],
   "exclude": ["src/public/"]
 }

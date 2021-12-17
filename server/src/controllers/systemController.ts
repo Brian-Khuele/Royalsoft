@@ -1,7 +1,7 @@
 import { RequestHandler, Request, Response, NextFunction } from 'express';
 
 import pg from 'db/knex';
-import { getStatusCode } from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 
 export const getRaces: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -65,6 +65,30 @@ export const getSubjects: RequestHandler = async (
     return next(error);
   }
 };
+export const getGradeSubjects: RequestHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    if (!req.query.grade) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Grade missing.' });
+    }
+    let subjectsInGrade = await pg('subject_grade')
+      .select(['subject_id', 'grade', 'description', 'compulsory'])
+      .innerJoin('subject', function () {
+        this.on('subject_grade.subject_id', 'subject.id');
+      })
+      .where({ 'subject_grade.grade': req.query.grade });
+
+    //console.log(subjectsInGrade);
+    //return all the learners to the client
+    return res.status(StatusCodes.OK).json(subjectsInGrade);
+  } catch (error) {
+    return next(error);
+  }
+};
+
 export const getCombinations: RequestHandler = async (
   req: Request,
   res: Response,

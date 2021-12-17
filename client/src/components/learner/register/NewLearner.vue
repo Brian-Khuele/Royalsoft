@@ -50,9 +50,10 @@
                 :rules="[(val) => (val && val.length > 0) || ' Value may not be blank ']"
               />
               <q-select
-                v-model="learner.grade"
+                :value="learner.grade"
                 ref="grade"
                 :options="getDropDownValues(getGrades)"
+                @input="getGradeSubjects"
                 emit-value
                 map-options
                 outlined
@@ -336,10 +337,10 @@
 
         <q-step :name="3" title="Select subjects" icon="assignment">
           <div class="q-pa-lg subjects">
-            Available subjects
+            <label>Available Subjects</label>
             <q-select
               v-model="selectedSubjects"
-              :options="getGradeSubjects"
+              :options="gradeSubjects"
               color="primary"
               emit-value
               map-options
@@ -401,112 +402,127 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
-  export default {
-    name: 'NewLearner',
-    data() {
-      return {
-        step: 1,
-        learner: {},
-        parent: {},
-        selectedSubjects: [],
-        loading: false,
-        file: [],
+export default {
+  name: 'NewLearner',
+  data() {
+    return {
+      step: 1,
+      learner: {},
+      parent: {},
+      selectedSubjects: [],
+      loading: false,
+      file: [],
+      gradeSubjects: [],
+    };
+  },
+
+  computed: {
+    ...mapGetters('module', [
+      'getGrades',
+      'getGenders',
+      'getRaces',
+      'getLanguages',
+      'getSubjects',
+      'getIdTypes',
+      'getCountries',
+      'getCombinations',
+      'getRelations',
+    ]),
+  },
+  methods: {
+    onSubmit() {
+      const formData = new FormData();
+      //TODO: Validate all the user input before submitting
+
+      const registrationData = {
+        learner: this.learner,
+        parent: this.parent,
+        subjects: this.selectedSubjects,
       };
-    },
+      console.log('uploading', registrationData);
 
-    computed: {
-      ...mapGetters('module', [
-        'getGrades',
-        'getGenders',
-        'getRaces',
-        'getLanguages',
-        'getSubjects',
-        'getIdTypes',
-        'getCountries',
-        'getCombinations',
-        'getRelations',
-      ]),
-    },
-    methods: {
-      onSubmit() {
-        const formData = new FormData();
-        //TODO: Validate all the user input before submitting
+      this.file.forEach((value) => {
+        console.log(value);
+        formData.append('files', value);
+      });
 
-        const registrationData = {
-          learner: this.learner,
-          parent: this.parent,
-          subjects: this.selectedSubjects,
-        };
-        console.log('uploading', registrationData);
+      formData.append('learner', JSON.stringify(this.learner));
+      formData.append('parent', JSON.stringify(this.parent));
+      formData.append('subjects', JSON.stringify(this.selectedSubjects));
+      console.log('why is it empty???', formData);
 
-        this.file.forEach((value) => {
-          console.log(value);
-          formData.append('files', value);
-        });
-
-        formData.append('learner', JSON.stringify(this.learner));
-        formData.append('parent', JSON.stringify(this.parent));
-        formData.append('subjects', JSON.stringify(this.selectedSubjects));
-
+      this.$refs.newRegistration.validate().then((success) => {
+        //       if (success) {
+        //TODO: the information has been succesfully validated, send it to the backend
+        console.log(success);
+        console.log(formData);
         this.$axios
-          .post('http://localhost:3001/api/register', formData)
+          .post('http://localhost:3001/learner/register', formData)
           .then((result) => {
             console.log(result.data);
           })
           .catch((error) => {
             console.log(error);
           });
+        /*         } else {
+          alert('please check that all your info is correct!');
+        } */
+      });
 
-        this.$refs.newRegistration.validate().then((success) => {
-          if (success) {
-            //TODO: the information has been succesfully validated, send it to the backend
-            this.$axios.post('/register', formData);
-          } else {
-            alert('please check that all your info is correct!');
-          }
-        });
-
-        // to reset validations:
-        //this.$refs.newRegistration.resetValidation();
-      },
-      onReset() {
-        //
-      },
-      validate(value) {
-        console.log(value);
-        if (!value) return 'Make a selection';
-      },
-      validateForm() {
-        this.$refs.newRegistration.validate().then((success) => {
-          if (success) {
-            //TODO: the information has been succesfully validated, go to next step
-            this.$refs.stepper.next();
-          } else {
-            alert('Check that all information has been entered before proceeding!');
-          }
-        });
-      },
-      getDropDownValues(object) {
-        if (!object) return [];
-
-        return object.map((obj) => ({
-          label: obj.description,
-          value: obj.id,
-        }));
-      },
-      //this function  gets the subjects available for a selected grade
-      getGradeSubjects() {
-        //
-      },
+      // to reset validations:
+      //this.$refs.newRegistration.resetValidation();
     },
-  };
+    onReset() {
+      //
+    },
+    validate(value) {
+      console.log(value);
+      if (!value) return 'Make a selection';
+    },
+    validateForm() {
+      //this.$refs.stepper.next();
+
+      this.$refs.newRegistration.validate().then((success) => {
+        if (success) {
+          //TODO: the information has been succesfully validated, go to next step
+          this.$refs.stepper.next();
+        } else {
+          alert('Check that all information has been entered before proceeding!');
+        }
+      });
+    },
+    getDropDownValues(object) {
+      if (!object) return [];
+
+      return object.map((obj) => ({
+        label: obj.description,
+        value: obj.id,
+      }));
+    },
+    //this function  gets the subjects available for a selected grade
+    getGradeSubjects(value) {
+      this.learner.grade = value;
+      if (!value) return;
+      this.$axios
+        .get(`http://localhost:3001/system/subjectsInGrade?grade= ${this.learner.grade}`)
+        .then(({ data }) => {
+          this.gradeSubjects = data.map((subject) => {
+            return { value: subject.subject_id, label: subject.description };
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  .stepnav {
-    display: flex;
-    padding: 10px;
-  }
+.stepnav {
+  display: flex;
+  padding: 10px;
+}
 </style>

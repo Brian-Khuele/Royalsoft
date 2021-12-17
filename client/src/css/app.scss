@@ -129,7 +129,7 @@ tbody tr:hover {
 }
 
 .q-item {
-  color: white;
+  color: black;
 }
 
 .q-list {
@@ -161,10 +161,14 @@ tbody tr:hover {
   margin: 8px 8px 0px 8px;
   box-shadow: $boxShadow;
 
-  .q-expansion-item {
-    border-radius: unset;
+  .q-item {
+    color: white !important;
+    text-align: left !important;
+  }
+
+  .subMenu {
+    border-radius: 0;
     margin: 0;
-    box-shadow: $boxShadow;
   }
 }
 
@@ -203,5 +207,18 @@ tbody tr:hover {
 }
 
 .q-tab__label {
+  color: white;
+}
+
+.q-stepper__header > * {
+  color: white;
+}
+
+.q-field__bottom {
+  color: white;
+  padding-top: 0;
+}
+
+.subjects {
   color: white;
 }
